@@ -1,39 +1,34 @@
-import ContactRow from './ContactRow';
+import {useContext} from 'react';
+import ContactRow from './ContactRow.js';
+import {ContactContext} from './ContactContext.js';
+
 
 /**
  * Table de contact
+ * @param {contact} contact
  * @return {jsx}
  */
 function ContactTable() {
-  const data = [
-    {
-      name: 'Tom Jackson',
-      phone: '555-444-3333',
-      email: 'tom@gmail.com',
-    },
-    {
-      name: 'Such Wow',
-      phone: '555-444-1234',
-      email: 'wow@gmail.com',
-    },
-  ];
-
-  const jsxData = data.map((elt) => (
-    <ContactRow
-      name={elt.name}
-      phone={elt.phone}
-      email={elt.email}
-    />
-  ));
-
+  const {contact} = useContext(ContactContext);
   return (
     <table>
-      <tr>
-        <th>Name</th>
-        <th>Phone</th>
-        <th>email</th>
-      </tr>
-      {jsxData}
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>email</th>
+        </tr>
+      </thead>
+      <tbody>
+        {contact.map((elt, index) => (
+          <ContactRow
+            key={index}
+            name={elt.name}
+            phone={elt.phone}
+            email={elt.email}
+          />
+        ))}
+      </tbody>
     </table>
   );
 }
